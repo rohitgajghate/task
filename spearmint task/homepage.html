@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Move Image with JavaScript</title>
+    <link rel="stylesheet" href="homepage.css" />
+  </head>
+  <body>
+    <div id="contentContainer">
+      <img
+        id="thing"
+        src="https://www.wizard.financial/static/media/wizaart-img.56787174.gif"
+      />
+    </div>
+
+    <script>
+      var theThing = document.querySelector("#thing");
+      var container = document.querySelector("#contentContainer");
+
+      container.addEventListener("click", getClickPosition, false);
+
+      function getClickPosition(e) {
+        var parentPosition = getPosition(container);
+        var xPosition = e.clientX - parentPosition.x - theThing.clientWidth / 2;
+        var yPosition =
+          e.clientY - parentPosition.y - theThing.clientHeight / 2;
+
+        theThing.style.left = xPosition + "px";
+        theThing.style.top = yPosition + "px";
+      }
+
+      function getPosition(element) {
+        var xPosition = 0;
+        var yPosition = 0;
+
+        while (element) {
+          xPosition +=
+            element.offsetLeft - element.scrollLeft + element.clientLeft;
+          yPosition +=
+            element.offsetTop - element.scrollTop + element.clientTop;
+          element = element.offsetParent;
+        }
+
+        return { x: xPosition, y: yPosition };
+      }
+    </script>
+  </body>
+</html>
